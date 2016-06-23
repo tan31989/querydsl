@@ -14,7 +14,6 @@
 package com.querydsl.core.types;
 
 import java.math.BigDecimal;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
@@ -60,7 +59,7 @@ public class TemplateFactory {
                     } else if (arg instanceof Expression) {
                         return ExpressionUtils.operation(String.class, Ops.LOWER, (Expression) arg);
                     } else {
-                        return String.valueOf(arg).toLowerCase(Locale.ENGLISH);
+                        return String.valueOf(arg).toLowerCase();
                     }
                 }
             };
@@ -74,7 +73,7 @@ public class TemplateFactory {
                     } else if (arg instanceof Expression) {
                         return ExpressionUtils.operation(String.class, Ops.UPPER, (Expression) arg);
                     } else {
-                        return String.valueOf(arg).toUpperCase(Locale.ENGLISH);
+                        return String.valueOf(arg).toUpperCase();
                     }
                 }
             };
@@ -103,7 +102,7 @@ public class TemplateFactory {
                         Expression<String> concatenated = ExpressionUtils.operation(String.class, Ops.CONCAT, (Expression) arg, PERCENT);
                         return ExpressionUtils.operation(String.class, Ops.LOWER, concatenated);
                     } else {
-                        return escapeForLike(String.valueOf(arg).toLowerCase(Locale.ENGLISH)) + "%";
+                        return escapeForLike(String.valueOf(arg).toLowerCase()) + "%";
                     }
                 }
             };
@@ -132,7 +131,7 @@ public class TemplateFactory {
                         Expression<String> concatenated = ExpressionUtils.operation(String.class, Ops.CONCAT, PERCENT, (Expression) arg);
                         return ExpressionUtils.operation(String.class, Ops.LOWER, concatenated);
                     } else {
-                        return "%" + escapeForLike(String.valueOf(arg).toLowerCase(Locale.ENGLISH));
+                        return "%" + escapeForLike(String.valueOf(arg).toLowerCase());
                     }
                 }
             };
@@ -163,7 +162,7 @@ public class TemplateFactory {
                         concatenated = ExpressionUtils.operation(String.class, Ops.CONCAT, concatenated, PERCENT);
                         return ExpressionUtils.operation(String.class, Ops.LOWER, concatenated);
                     } else {
-                        return "%" + escapeForLike(String.valueOf(arg).toLowerCase(Locale.ENGLISH)) + "%";
+                        return "%" + escapeForLike(String.valueOf(arg).toLowerCase()) + "%";
                     }
                 }
             };
@@ -183,9 +182,9 @@ public class TemplateFactory {
                 if (m.start() > end) {
                     elements.add(new Template.StaticText(template.substring(end, m.start())));
                 }
-                String premodifiers = m.group(1).toLowerCase(Locale.ENGLISH);
+                String premodifiers = m.group(1).toLowerCase();
                 int index = Integer.parseInt(m.group(2));
-                String postmodifiers = m.group(6).toLowerCase(Locale.ENGLISH);
+                String postmodifiers = m.group(6).toLowerCase();
                 boolean asString = false;
                 Function<Object, Object> transformer = null;
                 switch (premodifiers.length()) {

@@ -13,8 +13,6 @@
  */
 package com.querydsl.sql.codegen;
 
-import java.util.Locale;
-
 import com.google.common.collect.ImmutableList;
 import com.querydsl.codegen.EntityType;
 
@@ -33,7 +31,7 @@ public class DefaultNamingStrategy extends AbstractNamingStrategy {
 
     @Override
     public String getClassName(String tableName) {
-        String className = tableName.substring(0, 1).toUpperCase(Locale.ENGLISH) +
+        String className = tableName.substring(0, 1).toUpperCase() +
                 toCamelCase(tableName.substring(1));
         return normalizeJavaName(className);
     }
@@ -64,7 +62,7 @@ public class DefaultNamingStrategy extends AbstractNamingStrategy {
     @Override
     public String getPropertyName(String columnName, EntityType entityType) {
         String normalized = normalizeJavaName(columnName);
-        return normalizeJavaName(normalized.substring(0, 1).toLowerCase(Locale.ENGLISH) +
+        return normalizeJavaName(normalized.substring(0, 1).toLowerCase() +
                 toCamelCase(normalized.substring(1)));
     }
 
