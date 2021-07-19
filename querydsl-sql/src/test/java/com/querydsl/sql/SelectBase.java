@@ -48,7 +48,7 @@ public class SelectBase extends AbstractBaseTest {
 
     private static final Expression<?>[] NO_EXPRESSIONS = new Expression[0];
 
-    private final QueryExecution standardTest = new QueryExecution(Module.SQL, Connections.getTarget()) {
+    private final QueryExecution standardTest = new QueryExecution(QuerydslModule.SQL, Connections.getTarget()) {
         @Override
         protected Fetchable<?> createQuery() {
             return testQuery().from(employee, employee2);
@@ -707,6 +707,7 @@ public class SelectBase extends AbstractBaseTest {
     }
 
     @Test
+    @ExcludeIn({SQLITE})
     public void dateTime_to_date() {
         firstResult(SQLExpressions.date(DateTimeExpression.currentTimestamp()));
     }
@@ -1175,12 +1176,13 @@ public class SelectBase extends AbstractBaseTest {
     }
 
     @Test
+    @ExcludeIn({HSQLDB}) // FIXME
     public void math() {
         math(Expressions.numberTemplate(Double.class, "0.50"));
     }
 
     @Test
-    @ExcludeIn({FIREBIRD, SQLSERVER}) // FIXME
+    @ExcludeIn({FIREBIRD, SQLSERVER, HSQLDB}) // FIXME
     public void math2() {
         math(Expressions.constant(0.5));
     }
@@ -1241,6 +1243,7 @@ public class SelectBase extends AbstractBaseTest {
 
 
     @Test
+    @ExcludeIn({SQLITE})
     public void no_from() {
         assertNotNull(firstResult(DateExpression.currentDate()));
     }

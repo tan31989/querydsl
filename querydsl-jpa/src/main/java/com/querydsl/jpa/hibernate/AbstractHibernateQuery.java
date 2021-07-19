@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.Nullable;
 
 import org.hibernate.*;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 
 import com.mysema.commons.lang.CloseableIterator;
 import com.querydsl.core.*;
@@ -100,9 +100,9 @@ public abstract class AbstractHibernateQuery<T, Q extends AbstractHibernateQuery
     private Query createQuery(@Nullable QueryModifiers modifiers, boolean forCount) {
         JPQLSerializer serializer = serialize(forCount);
         String queryString = serializer.toString();
-        logQuery(queryString, serializer.getConstantToAllLabels());
+        logQuery(queryString);
         Query query = session.createQuery(queryString);
-        HibernateUtil.setConstants(query, serializer.getConstantToNamedLabel(), serializer.getConstantToNumberedLabel(),
+        HibernateUtil.setConstants(query, serializer.getConstants(),
                 getMetadata().getParams());
         if (fetchSize > 0) {
             query.setFetchSize(fetchSize);
@@ -150,9 +150,9 @@ public abstract class AbstractHibernateQuery<T, Q extends AbstractHibernateQuery
 
 
     /**
-     * Return the query results as an <tt>Iterator</tt>. If the query
+     * Return the query results as an {@code Iterator}. If the query
      * contains multiple results pre row, the results are returned in
-     * an instance of <tt>Object[]</tt>.<br>
+     * an instance of {@code Object[]}.<br>
      * <br>
      * Entities returned as results are initialized on demand. The first
      * SQL query returns identifiers only.<br>
@@ -208,7 +208,7 @@ public abstract class AbstractHibernateQuery<T, Q extends AbstractHibernateQuery
         }
     }
 
-    protected void logQuery(String queryString, Map<Object, String> parameters) {
+    protected void logQuery(String queryString) {
         if (logger.isLoggable(Level.FINE)) {
             String normalizedQuery = queryString.replace('\n', ' ');
             logger.fine(normalizedQuery);
@@ -220,9 +220,9 @@ public abstract class AbstractHibernateQuery<T, Q extends AbstractHibernateQuery
     }
 
     /**
-     * Return the query results as <tt>ScrollableResults</tt>. The
+     * Return the query results as {@code ScrollableResults}. The
      * scrollability of the returned results depends upon JDBC driver
-     * support for scrollable <tt>ResultSet</tt>s.<br>
+     * support for scrollable {@code ResultSet}s.<br>
      *
      * @param mode scroll mode
      * @return scrollable results
@@ -247,7 +247,7 @@ public abstract class AbstractHibernateQuery<T, Q extends AbstractHibernateQuery
 
     /**
      * Set the name of the cache region.
-     * @param cacheRegion the name of a query cache region, or <tt>null</tt>
+     * @param cacheRegion the name of a query cache region, or {@code null}
      * for the default query cache
      */
     @SuppressWarnings("unchecked")

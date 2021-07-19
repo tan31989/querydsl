@@ -4,25 +4,22 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.querydsl</groupId>
   <artifactId>querydsl-root</artifactId>
-  <version>5.0.0-SNAPSHOT</version>
-    <modules>
-        <module>querydsl-guava</module>
-    </modules>
+  <version>5.0.0</version>
     <name>Querydsl</name>
   <description>parent project for Querydsl modules</description>
   <url>https://querydsl.github.io/</url>
-  
+
   <parent>
     <groupId>com.querydsl</groupId>
     <artifactId>querydsl-parent</artifactId>
     <version>0.1.0</version>
   </parent>
-  
+
   <packaging>pom</packaging>
 
   <inceptionYear>2007</inceptionYear>
-  
-  <properties>    
+
+  <properties>
     <failIfNoTests>false</failIfNoTests>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.homepage>http://www.querydsl.com</project.homepage>
@@ -39,39 +36,43 @@
 
     <!-- groups to run with surefire plugin - intended to be overridden on the command line -->
     <includedGroups></includedGroups>
-    
+
     <argLine>-Xms256m -Xmx512m</argLine>
 
     <!-- SQL deps -->
-    <db2.version>11.5.0.0</db2.version>
-    <derby.version>10.11.1.1</derby.version>
-    <hsqldb.version>2.3.2</hsqldb.version>
+    <db2.version>11.5.5.0</db2.version>
+    <derby.version>10.15.2.0</derby.version>
+    <hsqldb.version>2.6.0</hsqldb.version>
     <h2.version>1.4.197</h2.version>
-    <postgresql.version>42.2.18</postgresql.version>
-    <oracle.version>11.1.0.7.0</oracle.version>
-    <mysql.version>5.1.30</mysql.version>
+    <postgresql.version>42.2.22</postgresql.version>
+    <oracle.version>11.2.0.4</oracle.version>
+    <mysql.version>8.0.25</mysql.version>
     <jtds.version>1.3.1</jtds.version>
-    <cubrid.version>9.3.1.0005</cubrid.version>
-    <sqlite.version>3.7.2</sqlite.version>
+    <cubrid.version>9.3.9.0002</cubrid.version>
+    <sqlite.version>3.36.0</sqlite.version>
     <teradata.version>13.10.00.35</teradata.version>
-    <firebird.version>2.2.5</firebird.version>
+    <firebird.version>2.2.15</firebird.version>
 
     <!-- JPA deps -->
     <hibernate.version>5.4.8.Final</hibernate.version>
-    <hibernate.validator.version>6.0.18.Final</hibernate.validator.version>
-    <eclipselink.version>2.6.2</eclipselink.version>
+    <hibernate.validator.version>7.0.1.Final</hibernate.validator.version>
+    <eclipselink.version>2.7.8</eclipselink.version>
 
-    <guava.version>30.0-jre</guava.version>
+    <guava.version>30.1.1-jre</guava.version>
     <codegen.version>0.6.8</codegen.version>
     <mysema.lang.version>0.2.4</mysema.lang.version>
     <cglib.version>3.3.0</cglib.version>
-    <slf4j.version>1.6.1</slf4j.version>
-    <surefire.version>2.18</surefire.version>
-    <animal-sniffer.version>1.18</animal-sniffer.version>
-    <jodatime.version>2.10.8</jodatime.version>
+    <slf4j.version>1.7.31</slf4j.version>
+    <surefire.version>2.22.2</surefire.version>
+    <animal-sniffer.version>1.20</animal-sniffer.version>
+    <jodatime.version>2.10.10</jodatime.version>
     <h2gis.version>1.5.0</h2gis.version>
     <morphia.version>1.3.2</morphia.version>
-    
+    <jmh.version>1.32</jmh.version>
+    <hamcrest.veresion>2.2</hamcrest.veresion>
+    <kotlin.version>1.5.20</kotlin.version>
+    <dokka.version>1.4.32</dokka.version>
+
     <!-- Import-Package definitions for maven-bundle-plugin -->
     <osgi.import.package.root>
       *
@@ -87,14 +88,13 @@
     </dependency>
     <dependency>
         <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-library</artifactId>
-        <version>1.3</version>
+        <artifactId>hamcrest</artifactId>
         <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.0</version>
+      <version>4.3</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -102,11 +102,6 @@
           <artifactId>cglib-nodep</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.reflections</groupId>
-      <artifactId>reflections</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.javassist</groupId>
@@ -123,6 +118,17 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>21.0.1</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>2.2.3</version>
+      </dependency>
       <dependency>
         <groupId>org.datanucleus</groupId>
         <artifactId>javax.jdo</artifactId>
@@ -146,7 +152,25 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.12</version>
+        <version>4.13.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest</artifactId>
+        <version>${hamcrest.veresion}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>${hamcrest.veresion}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>${hamcrest.veresion}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jdt.core.compiler</groupId>
@@ -154,9 +178,9 @@
         <version>4.6.1</version>
       </dependency>
       <dependency>
-        <groupId>org.reflections</groupId>
-        <artifactId>reflections</artifactId>
-        <version>0.9.12</version>
+        <groupId>io.github.classgraph</groupId>
+        <artifactId>classgraph</artifactId>
+        <version>4.8.108</version>
         <exclusions>
           <exclusion>
             <groupId>org.javassist</groupId>
@@ -167,7 +191,7 @@
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
-        <version>3.26.0-GA</version>
+        <version>3.28.0-GA</version>
       </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
@@ -177,7 +201,29 @@
       <dependency>
         <groupId>org.geolatte</groupId>
         <artifactId>geolatte-geom</artifactId>
-        <version>1.4.0</version>
+        <version>1.8.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-bom</artifactId>
+        <version>${kotlin.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-scripting-jsr223</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml</groupId>
+        <artifactId>classmate</artifactId>
+        <version>1.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>jboss-logging</artifactId>
+        <version>3.4.2.Final</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -290,7 +336,7 @@
         <plugin>
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
-          <version>2.4.0</version>
+          <version>5.1.2</version>
           <executions>
             <execution>
               <id>bundle-manifest</id>
@@ -310,9 +356,30 @@
             </execution>
           </executions>
         </plugin>
-      </plugins>      
+        <plugin>
+          <groupId>org.jetbrains.dokka</groupId>
+          <artifactId>dokka-maven-plugin</artifactId>
+          <version>${dokka.version}</version>
+          <executions>
+            <execution>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>javadocJar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-maven-plugin</artifactId>
+          <version>${kotlin.version}</version>
+          <configuration>
+            <jvmTarget>1.8</jvmTarget>
+          </configuration>
+        </plugin>
+      </plugins>
     </pluginManagement>
-    
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -381,62 +448,31 @@
               </rules>
             </configuration>
           </execution>
+        </executions>
+      </plugin>
+      <!-- TODO make this work or find replacement
+      <plugin>
+        <groupId>com.github.siom79.japicmp</groupId>
+        <artifactId>japicmp-maven-plugin</artifactId>
+        <version>0.15.3</version>
+        <configuration>
+          <parameter>
+            <breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
+            <breakBuildOnSourceIncompatibleModifications>true</breakBuildOnSourceIncompatibleModifications>
+            <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
+            <ignoreMissingClasses>true</ignoreMissingClasses>
+          </parameter>
+        </configuration>
+        <executions>
           <execution>
-            <id>check</id>
             <phase>verify</phase>
             <goals>
-              <goal>enforce</goal>
+              <goal>cmp</goal>
             </goals>
-            <configuration>
-              <rules>
-                <requireBackwardCompatibility implementation="org.semver.enforcer.RequireBackwardCompatibility">
-                  <excludes>
-                    <exclude>com/querydsl/sql/types/AbstractJodaTimeDateTimeType</exclude>
-                    <exclude>com/querydsl/sql/types/DateTimeType</exclude>
-                    <exclude>com/querydsl/sql/types/LocalDateTimeType</exclude>
-                    <exclude>com/querydsl/sql/types/LocalDateType</exclude>
-                    <exclude>com/querydsl/sql/types/LocalTimeType</exclude>
-                    <exclude>com/querydsl/jpa/Hibernate5Templates</exclude>
-                    <exclude>com/querydsl/jpa/HibernateHandler</exclude>
-                    <exclude>com/querydsl/jpa/JPAExpressions</exclude>
-                  </excludes>
-                  <compatibilityType>BACKWARD_COMPATIBLE_USER</compatibilityType>
-                  <dumpDetails>true</dumpDetails>
-                  <publicOnly>true</publicOnly>
-                </requireBackwardCompatibility>
-              </rules>
-            </configuration>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.semver</groupId>
-            <artifactId>enforcer-rule</artifactId>
-            <version>0.9.33</version>
-            <exclusions>
-              <exclusion>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-              </exclusion>
-              <exclusion>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-commons</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-          <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>9.0</version>
-          </dependency>
-          <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm-commons</artifactId>
-            <version>9.0</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>       
+      </plugin> -->
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
@@ -448,7 +484,7 @@
       <plugin>
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>
-        <version>4.0.0</version>
+        <version>4.3.0</version>
         <configuration>
           <repoToken>${env.COVERALLS_REPO_TOKEN}</repoToken>
         </configuration>
@@ -456,7 +492,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.5.201505241946</version>
+        <version>0.8.7</version>
         <executions>
           <execution>
             <id>prepare-agent</id>
@@ -469,10 +505,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.3.0</version>
         <configuration>
+          <source>8</source>
+          <excludePackageNames>com.querydsl.examples.kotlin.*</excludePackageNames>
           <outputDirectory>${project.build.directory}/dist/apidocs</outputDirectory>
           <reportOutputDirectory>${project.build.directory}/dist/apidocs</reportOutputDirectory>
+          <detectJavaApiLink>false</detectJavaApiLink>
           <groups>
             <group>
               <title>Core</title>
@@ -529,47 +568,44 @@
             <group>
               <title>Mongodb</title>
               <packages>com.querydsl.mongodb*</packages>
-            </group>            
+            </group>
           </groups>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.4</version>
+        <version>3.14.0</version>
         <configuration>
-          <targetJdk>1.6</targetJdk>   
-          <includeTests>true</includeTests>     
+          <targetJdk>1.6</targetJdk>
+          <includeTests>true</includeTests>
         </configuration>
-      </plugin>      
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>8</source>
-          <target>8</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>2.4</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
-            <goals>            
+            <goals>
               <goal>jar</goal>
             </goals>
           </execution>
         </executions>
-      </plugin>  
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <useDefaultManifestFile>true</useDefaultManifestFile>
-        </configuration>
+        <version>3.2.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -610,7 +646,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.15</version>
+        <version>3.1.2</version>
         <executions>
           <execution>
             <id>checkstyle</id>
@@ -640,22 +676,15 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>6.6</version>
+            <version>8.44</version>
           </dependency>
         </dependencies>
         <configuration>
-          <excludes>**/generated/**/*,**/com/querydsl/codegen/utils/**/*</excludes>
+          <excludes>**/generated/**/*,**/jmh_generated/**/*,**/com/querydsl/codegen/utils/**/*</excludes>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>querydsl</id>
-      <url>http://www.querydsl.com/maven</url>
-    </repository>
-  </repositories>
 
   <pluginRepositories>
     <pluginRepository>
@@ -667,7 +696,7 @@
       <url>http://repository.springsource.com/maven/bundles/external</url>
     </pluginRepository>
   </pluginRepositories>
- 
+
   <profiles>
     <profile>
       <id>all</id>
@@ -679,6 +708,7 @@
         <module>querydsl-spatial</module>
         <module>querydsl-apt</module>
         <module>querydsl-collections</module>
+        <module>querydsl-guava</module>
         <module>querydsl-sql</module>
         <module>querydsl-sql-spatial</module>
         <module>querydsl-sql-codegen</module>
@@ -688,6 +718,7 @@
         <module>querydsl-jpa-codegen</module>
         <module>querydsl-jdo</module>
         <module>querydsl-bom</module>
+        <module>querydsl-kotlin-codegen</module>
 
         <!-- Lucene related -->
         <module>querydsl-lucene3</module>
@@ -821,8 +852,7 @@
           com.querydsl.core.testutil.Performance,
 
           com.querydsl.core.testutil.DB2,
-          com.querydsl.core.testutil.SQLServer,
-          com.querydsl.core.testutil.Teradata
+          com.querydsl.core.testutil.SQLServer
         </excludedGroups>
       </properties>
     </profile>
@@ -857,20 +887,59 @@
         <checkstyle.skip>true</checkstyle.skip>
         <enforcer.skip>true</enforcer.skip>
         <animal.sniffer.skip>true</animal.sniffer.skip>
+        <!--<japicmp.skip>true</japicmp.skip>-->
       </properties>
     </profile>
+
+    <profile>
+      <id>java-8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <properties>
+        <hsqldb.version>2.5.2</hsqldb.version>
+        <derby.version>10.14.2.0</derby.version>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>java-11</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <source>1.8</source>
+              <target>11</target>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.eluder.coveralls</groupId>
+            <artifactId>coveralls-maven-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>2.3.2</version>
+              </dependency>
+              <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>2.3.2</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
-  
+
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9.1</version>
-        <configuration>
-          <detectJavaApiLink>true</detectJavaApiLink>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>junit-report-maven-plugin</artifactId>
@@ -882,12 +951,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.1.1</version>
         <configuration>
           <aggregate>true</aggregate>
         </configuration>
       </plugin>
     </plugins>
   </reporting>
-  
+
 </project>

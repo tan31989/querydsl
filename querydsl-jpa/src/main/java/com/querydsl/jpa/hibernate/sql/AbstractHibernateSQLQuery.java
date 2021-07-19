@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.*;
 
 import com.mysema.commons.lang.CloseableIterator;
@@ -84,11 +84,10 @@ public abstract class AbstractHibernateSQLQuery<T, Q extends AbstractHibernateSQ
     private Query createQuery(boolean forCount) {
         NativeSQLSerializer serializer = (NativeSQLSerializer) serialize(forCount);
         String queryString = serializer.toString();
-        logQuery(queryString, serializer.getConstantToAllLabels());
-        org.hibernate.SQLQuery query = session.createSQLQuery(queryString);
+        logQuery(queryString);
+        org.hibernate.query.NativeQuery query = session.createSQLQuery(queryString);
         // set constants
-        HibernateUtil.setConstants(query, serializer.getConstantToNamedLabel(), serializer.getConstantToNumberedLabel(),
-                queryMixin.getMetadata().getParams());
+        HibernateUtil.setConstants(query, serializer.getConstants(), queryMixin.getMetadata().getParams());
 
         if (!forCount) {
             Map<Expression<?>, List<String>> aliases = serializer.getAliases();
@@ -201,7 +200,7 @@ public abstract class AbstractHibernateSQLQuery<T, Q extends AbstractHibernateSQ
         }
     }
 
-    protected void logQuery(String queryString, Map<Object, String> parameters) {
+    protected void logQuery(String queryString) {
         if (logger.isLoggable(Level.FINE)) {
             String normalizedQuery = queryString.replace('\n', ' ');
             logger.fine(normalizedQuery);
@@ -243,7 +242,7 @@ public abstract class AbstractHibernateSQLQuery<T, Q extends AbstractHibernateSQ
 
     /**
      * Set the name of the cache region.
-     * @param cacheRegion the name of a query cache region, or <tt>null</tt>
+     * @param cacheRegion the name of a query cache region, or {@code null}
      * for the default query cache
      */
     @SuppressWarnings("unchecked")

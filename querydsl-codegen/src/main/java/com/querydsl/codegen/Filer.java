@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, The Querydsl Team (http://www.querydsl.com/team)
+ * Copyright 2021, The Querydsl Team (http://www.querydsl.com/team)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,36 +11,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.querydsl.core;
+package com.querydsl.codegen;
+
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Collection;
 
 /**
- * @author tiwe
+ * provides files in annotation processing to write classes to
  *
+ * @author f43nd1r
  */
-public enum Module {
-    /**
-     *
-     */
-    COLLECTIONS,
-    /**
-     *
-     */
-    JPA,
-    /**
-     *
-     */
-    JDO,
-    /**
-     *
-     */
-    RDFBEAN,
-    /**
-     *
-     */
-    SQL,
-    /**
-     *
-     */
-    LUCENE;
-
+public interface Filer {
+    Writer createFile(ProcessingEnvironment processingEnvironment, String classname, Collection<? extends Element> elements) throws IOException;
 }

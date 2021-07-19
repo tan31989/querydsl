@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.querydsl</groupId>
     <artifactId>querydsl-root</artifactId>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -16,14 +16,13 @@
   <packaging>jar</packaging>
 
   <properties>
-    <ant.version>1.8.1</ant.version>
+    <ant.version>1.10.10</ant.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
-      <version>20.1.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -73,6 +72,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derbytools</artifactId>
+      <version>${derby.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.version}</version>
@@ -91,9 +96,9 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.oracle</groupId>
+      <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc6</artifactId>
-      <version>11.1.0.7.0</version>
+      <version>${oracle.version}</version>
       <scope>test</scope>
     </dependency>
           
@@ -135,7 +140,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version>
+      <version>1.7.31</version>
       <scope>test</scope>
     </dependency>
 

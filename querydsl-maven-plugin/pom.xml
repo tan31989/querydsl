@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.querydsl</groupId>
         <artifactId>querydsl-root</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -24,7 +24,6 @@
 
     <properties>
         <mvn.version>2.2.1</mvn.version>
-        <jdo.version>2.3-eb</jdo.version>
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
@@ -34,7 +33,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.6.0</version>
+                    <version>3.6.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -45,7 +44,7 @@
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
-                <version>1.5.8</version>
+                <version>3.3.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -85,9 +84,8 @@
 
         <!-- annotations -->
         <dependency>
-            <groupId>javax.jdo</groupId>
-            <artifactId>jdo2-api</artifactId>
-            <version>${jdo.version}</version>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>javax.jdo</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
